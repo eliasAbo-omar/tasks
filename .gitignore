@@ -1,0 +1,19 @@
+node_modules/
+vendor/
+dist/, build/
+target/
+Thumbs.db
+.vscode/
+.idea/
+.project, .settings/
+*.log, npm-debug.log*, yarn-debug.log*, yarn-error.log*
+*.tmp, *.bak
+.mypy_cache/, __pycache__/
+.ipynb_checkpoints/
+.env, .env.local, .env.development, .env.production
+secrets.json, config.json
+*.sqlite, *.sqlite3, *.db
+dump.rdb
+coverage/, *.lcov
+.tox/, .pytest_cache/
+.env
