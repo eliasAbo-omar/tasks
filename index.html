@@ -3,36 +3,61 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <!-- =========== favicon =========== -->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- =========== bootstrap =========== -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-    <!-- =========== Main CSS =========== -->
+    <title>مخطط المهام اليومية الذكي</title>
+
+    <!-- استدعاء ملفات Swiper CSS من الـ CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <!-- ربط ملف التنسيق الخارجي الخاص بك -->
     <link rel="stylesheet" href="assets/css/style.css" />
-    <title>tasks</title>
   </head>
   <body>
-    <div class="container-father">
-      <div class="iformation-tasks">
-        <div class="add-tasks">
-          <h3 class="title">مرحبا بك يا جميل/ة</h3>
-          <div class="inputs-btn">
-            <input
-              type="text"
-              placeholder="قم بإضافة مهامك هنا ..."
-              required
-              class="input-task"
-            />
-            <button class="btn">إضافة مهمة</button>
+    <div class="container">
+      <header>
+        <h1>مهامي اليومية</h1>
+      </header>
+
+      <!-- سكشن إضافة المهمة والعداد المطور جنب بعض -->
+      <div class="input-section">
+        <div class="input-wrapper">
+          <input
+            type="text"
+            id="taskInput"
+            placeholder="أضف مهمتك اليومية هنا..."
+            autocomplete="off"
+          />
+          <button id="addTaskBtn">إضافة المهمة</button>
+        </div>
+
+        <div class="progress-wrapper">
+          <div class="progress-circle-container">
+            <!-- طبقة البار اللي تمشي بالخلفية وتتعبى أخضر -->
+            <div class="progress-bar-fill" id="progressBarFill"></div>
+            <!-- النص المئوي الأمامي -->
+            <div class="progress-text" id="progressPercentage">0%</div>
           </div>
         </div>
-        <div class="success-tasks">
-          <div class="number">0%</div>
+      </div>
+
+      <!-- سكشن الـ Swiper لعرض المهام المضافة -->
+      <div class="swiper-container-wrapper">
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper" id="swiperWrapper">
+            <!-- كروت المهام بتندف هنا ديناميكياً بالجافا سكريبت -->
+          </div>
+          <!-- نقاط التنقل السفلى للسوايبير -->
+          <div class="swiper-pagination"></div>
         </div>
       </div>
     </div>
 
+    <!-- استدعاء مكتبة Swiper JS من الـ CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- ربط ملف الجافا سكريبت الخارجي الآمن الخاص بك -->
     <script src="assets/js/main.js"></script>
   </body>
 </html>
