@@ -51,7 +51,6 @@ function updateProgress() {
   const completedTasks = tasks.filter((t) => t.completed).length;
   const percentage = Math.round((completedTasks / tasks.length) * 100);
 
-  // تحديث النص وعرض البار
   progressPercentage.textContent = `${percentage}%`;
   progressBarFill.style.width = `${percentage}%`;
 
@@ -63,8 +62,27 @@ function updateProgress() {
   }
 }
 
+function checkDailyReset() {
+  if (tasks.length === 0) return;
+
+  const todayString = new Date().toDateString();
+
+  if (tasks[0].lastUpdatedDate && tasks[0].lastUpdatedDate !== todayString) {
+    tasks.forEach((task) => {
+      task.completed = false;
+      task.lastUpdatedDate = todayString;
+    });
+
+    saveToLocalStorage();
+    console.log(
+      "تم بدء يوم جديد! تم إعادة تعيين كافة المهام إلى غير مكتملة بنجاح.",
+    );
+  }
+}
+
 function renderTaskSlide(task) {
   const isCompleted = task.completed ? "completed" : "";
+
   const slideHTML = `
         <div class="swiper-slide ${isCompleted}" id="slide-${task.id}">
             <div class="slide-content">${task.text}</div>
@@ -78,6 +96,8 @@ function renderTaskSlide(task) {
 }
 
 function loadSavedTasks() {
+  checkDailyReset();
+
   if (tasks.length > 0) {
     tasks.forEach((task) => {
       renderTaskSlide(task);
@@ -94,11 +114,13 @@ function addTask() {
   const cleanText = escapeHTML(rawText);
 
   const taskId = Date.now();
+  const todayString = new Date().toDateString();
 
   const newTask = {
     id: taskId,
     text: cleanText,
     completed: false,
+    lastUpdatedDate: todayString,
   };
   tasks.push(newTask);
 
@@ -115,8 +137,11 @@ function addTask() {
 
 function toggleComplete(id) {
   const task = tasks.find((t) => t.id === id);
+
   if (task) {
     task.completed = !task.completed;
+
+    task.lastUpdatedDate = new Date().toDateString();
 
     saveToLocalStorage();
 
@@ -136,7 +161,6 @@ function deleteTask(id) {
 
   const slideIndex = Array.from(swiperWrapper.children).indexOf(slideElement);
 
-  // حذف من المصفوفة وتحديث LocalStorage
   tasks = tasks.filter((t) => t.id !== id);
   saveToLocalStorage();
 
